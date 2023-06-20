@@ -67,6 +67,10 @@ public class Game {
 					} else {
 						// if the current snake piece is not the head or an apple
 						System.out.print(board[i][j].tail+" ");
+						// decremement .len variable
+						board[i][j].len -= speed;
+						// set it to null once it reaches 0
+						if (board[i][j].len <= 0) board[i][j] = null;
 					}
 				} else {
 					// print out a dot if the current snake piece doesnt exist.
@@ -95,23 +99,8 @@ public class Game {
 		// reset apple timer 
 		appleTimer = appleTimerMax; 
 	}
-	// function to decrease the snake tail pieces len variable
-	void stepLen() {
-		for (int i=0; i<board.length; i++) {
-			for (int j=0; j<board.length; j++) {
-				// if board[i][j] is a tail piece
-				if (board[i][j] != null && !board[i][j].head && !board[i][j].isApple) {
-					// decrement it's internal length variable
-					board[i][j].len--;
-					// if / when that internal variable reaches 0, delete the snake piece.
-					if (board[i][j].len <= 0) board[i][j] = null;
-				}
-			}
-		}
-	}
 
 	void move(char m) {
-		stepLen();
 		// set current x y to previous x y
 		int py = headY;
 		int px = headX;
